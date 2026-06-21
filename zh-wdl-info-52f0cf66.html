@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>足球胜平负 · 赛事分析参考平台</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f7f7fa;
+      color: #1e1e2a;
+      line-height: 1.7;
+    }
+
+    /* 深色 hero 区 */
+    .hero {
+      background: linear-gradient(145deg, #10131f 0%, #1a1e2e 100%);
+      color: #eaeef2;
+      padding: 4rem 2rem 3.5rem;
+      text-align: center;
+      border-bottom: 2px solid #2d3548;
+    }
+
+    .hero-title {
+      font-size: 2.4rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: #b6c2d4;
+      max-width: 700px;
+      margin: 0 auto 0.6rem;
+    }
+
+    .hero-meta {
+      display: inline-block;
+      margin-top: 1.6rem;
+      padding: 0.5rem 1.2rem;
+      background: #2a3145;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      color: #aebacf;
+    }
+
+    /* 主内容容器 */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3rem;
+    }
+
+    /* 优势区 三卡片 */
+    .advantages {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+
+    .advantage-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 1.8rem 1.4rem;
+      flex: 1 1 200px;
+      min-width: 180px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      border: 1px solid #ececf0;
+      transition: transform 0.2s ease, box-shadow 0.2s;
+    }
+
+    .advantage-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .advantage-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.6rem;
+      color: #1f2335;
+      letter-spacing: 0.3px;
+    }
+
+    .advantage-card p {
+      font-size: 0.95rem;
+      color: #3f4250;
+    }
+
+    .icon-em {
+      display: block;
+      font-size: 1.8rem;
+      margin-bottom: 0.4rem;
+    }
+
+    /* 说明区 —— 站点介绍 */
+    .intro-section {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2.2rem 2rem;
+      margin-bottom: 2.8rem;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.02);
+    }
+
+    .intro-section h2 {
+      font-size: 1.6rem;
+      font-weight: 550;
+      border-left: 5px solid #d4463c;
+      padding-left: 1rem;
+      margin-bottom: 1.2rem;
+      color: #1d1f2b;
+    }
+
+    .intro-section p {
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+      color: #2b2d3a;
+    }
+
+    .intro-section a {
+      color: #ba3d35;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px dotted #ba3d3580;
+    }
+
+    .intro-section a:hover {
+      color: #8f2b24;
+      border-bottom-color: #8f2b24;
+    }
+
+    /* FAQ 摘要 */
+    .faq-summary {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 2rem 1.6rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.02);
+    }
+
+    .faq-summary h2 {
+      font-size: 1.4rem;
+      font-weight: 550;
+      margin-bottom: 1.4rem;
+      color: #1d1f2b;
+    }
+
+    .faq-item {
+      margin-bottom: 1.2rem;
+    }
+
+    .faq-item strong {
+      display: block;
+      font-weight: 550;
+      color: #1f2335;
+      margin-bottom: 0.15rem;
+    }
+
+    .faq-item p {
+      margin: 0;
+      color: #3a3d4e;
+      font-size: 0.95rem;
+    }
+
+    .faq-divider {
+      height: 1px;
+      background: #e7e8ed;
+      margin: 1rem 0;
+    }
+
+    /* 底部链接区域 */
+    .footer-links {
+      border-top: 1px solid #dbdce3;
+      padding: 2rem 0 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #4c4f62;
+    }
+
+    .footer-links a {
+      color: #ba3d35;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px dotted #ba3d3580;
+    }
+
+    .footer-links a:hover {
+      color: #8f2b24;
+      border-bottom-color: #8f2b24;
+    }
+
+    .footer-links .dot {
+      display: inline-block;
+      margin: 0 0.6rem;
+      color: #acafbd;
+    }
+
+    /* 响应式 */
+    @media (max-width: 680px) {
+      .hero-title {
+        font-size: 1.8rem;
+      }
+
+      .hero {
+        padding: 3rem 1.2rem 2.5rem;
+      }
+
+      .container {
+        padding: 1.8rem 1rem 2rem;
+      }
+
+      .advantages {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .advantage-card {
+        flex: 1 1 auto;
+      }
+
+      .intro-section,
+      .faq-summary {
+        padding: 1.5rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero 头图区 -->
+  <section class="hero">
+    <h1 class="hero-title">足球胜平负 · 赛前参考</h1>
+    <p class="hero-sub">围绕赛事数据与对阵逻辑，为爱好者提供一份朴素的信息参考。</p>
+    <span class="hero-meta">持续更新 · 内容仅代表分析角度</span>
+  </section>
+
+  <div class="container">
+
+    <!-- 优势区：三卡片 -->
+    <div class="advantages">
+      <div class="advantage-card">
+        <span class="icon-em">📊</span>
+        <h3>赛前视角</h3>
+        <p>每场焦点战前梳理基本形势、双方近况与常规数据，不提供预测结论。</p>
+      </div>
+      <div class="advantage-card">
+        <span class="icon-em">🧭</span>
+        <h3>结构清晰</h3>
+        <p>按联赛与时间排列，方便对照查看。页面简洁，专注内容本身。</p>
+      </div>
+      <div class="advantage-card">
+        <span class="icon-em">⚖️</span>
+        <h3>中立框架</h3>
+        <p>不炒作、不渲染，基于公开信息做客观呈现，帮助读者自行判断。</p>
+      </div>
+    </div>
+
+    <!-- 说明区：站点介绍 & 可信说明 -->
+    <div class="intro-section">
+      <h2>关于这个站点</h2>
+      <p>
+        对我来说，足球的魅力在于它的不确定性。而<strong>胜平负</strong>作为最基础的赛果维度，恰好能承载很多赛前思考。
+        搭建 <a href="https://zh-wdl.com">足球胜平负</a> 这个页面，是想把零散的赛前信息整理成相对完整的参考列表，
+        包括球队状态、交锋印象、阵容轮换等常见维度。这里没有算法推导，也没有内部消息，
+        所有内容都来自可以查到的公开赛事信息与常识梳理。
+      </p>
+      <p>
+        站点的出发点很简单：让你在翻看周末对阵时，能快速了解每场比赛的背景与看点。
+        不做结论，只提供角度。内容会保持克制与真实，每一条分析都标注数据来源或依据。
+        如果你也喜欢在赛前自己推演一遍，这里或许能节省一些收集信息的时间。
+      </p>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-summary">
+      <h2>一些常见疑问</h2>
+
+      <div class="faq-item">
+        <strong>这里的“胜平负”是预测吗？</strong>
+        <p>不是预测，而是围绕赛前信息做归纳。最终判断还请结合临场情况自行斟酌。</p>
+      </div>
+      <div class="faq-divider"></div>
+
+      <div class="faq-item">
+        <strong>数据更新频率怎么样？</strong>
+        <p>主流联赛的焦点场次会在赛前 24–48 小时更新。杯赛或特殊对阵酌情补充。</p>
+      </div>
+      <div class="faq-divider"></div>
+
+      <div class="faq-item">
+        <strong>可以转载或引用内容吗？</strong>
+        <p>可以引用链接或段落，但请注明出处。不建议全文复制，毕竟信息都有时效性。</p>
+      </div>
+      <div class="faq-divider"></div>
+
+      <div class="faq-item">
+        <strong>为什么没有赔率或指数分析？</strong>
+        <p>更希望聚焦在球队与比赛本身。赔率是另外一个维度，暂时不纳入常规内容。</p>
+      </div>
+    </div>
+
+    <!-- 底部链接区 -->
+    <div class="footer-links">
+      <a href="https://zh-wdl.com">足球胜平负</a>
+      <span class="dot">·</span>
+      <span>内容仅供参考，不构成任何建议</span>
+      <span class="dot">·</span>
+      <span>© 2025</span>
+    </div>
+
+  </div>
+
+</body>
+</html>
